@@ -278,7 +278,6 @@
       display: grid; grid-template-columns: 1fr 1fr;
       gap: 64px; align-items: end;
       margin-bottom: 80px; padding-bottom: 56px;
-      border-bottom: 1px solid var(--divider);
     }
     .section-title-large {
       font-family: var(--serif);
@@ -471,7 +470,7 @@
     /* ── INDUSTRIES ── */
     .industries { background: var(--navy); padding: 128px 64px; border-top: 1px solid var(--divider); }
     .industries-header { display: grid; grid-template-columns: 1fr 1fr; align-items: end; margin-bottom: 64px; }
-    .industries-title { font-family: var(--serif); font-size: clamp(36px, 4vw, 56px); font-weight: 300; color: var(--white); margin-top: 20px; }
+    .industries-title { font-family: var(--serif); font-size: clamp(36px, 4vw, 56px); font-weight: 300; color: var(--white); margin-top: 20px; white-space: nowrap; }
     .industries-intro { font-size: 13px; color: rgba(248,246,241,0.70); line-height: 1.85; align-self: end; padding-top: 24px; }
     .industries-grid {
       display: grid; grid-template-columns: repeat(4,1fr); gap: 2px;
@@ -963,7 +962,7 @@
     <div class="industries-header">
       <div>
         <p class="twin-label">Markets</p>
-        <h2 class="industries-title">Industries<br/>we serve.</h2>
+        <h2 class="industries-title">Industries we serve.</h2>
       </div>
       <p class="industries-intro">
         Our engineering methodology applies across any industry where performance, precision, and composite construction intersect — from high-speed powerboats to architectural installations.
