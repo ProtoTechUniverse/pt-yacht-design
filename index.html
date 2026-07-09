@@ -185,7 +185,7 @@
 
     /* ── MANIFESTO ── */
     .manifesto {
-      background: linear-gradient(to bottom, #1a1a1a 0%, #020810 100%); padding: 128px 64px;
+      background: linear-gradient(to bottom, #1a1a1a 0%, #020810 100%); padding: 80px 64px 64px;
       display: grid; grid-template-columns: 1fr 1fr;
       gap: 96px; align-items: start;
     }
@@ -215,7 +215,7 @@
     /* ── DIGITAL TWIN ── */
     .twin-feature {
       background: linear-gradient(to bottom, #020810 0%, #1a1a1a 50%, #020810 100%);
-      padding: 128px 64px;
+      padding: 64px 64px;
       display: grid; grid-template-columns: 1fr 1fr;
       gap: 96px; align-items: center;
     }
@@ -271,7 +271,7 @@
 
     /* ── SERVICES ── */
     .services {
-      background: linear-gradient(to bottom, #020810 0%, #1a1a1a 50%, #020810 100%); padding: 128px 64px;
+      background: linear-gradient(to bottom, #020810 0%, #1a1a1a 50%, #020810 100%); padding: 80px 64px;
       border-top: 1px solid var(--divider);
     }
     .services-header {
@@ -317,7 +317,7 @@
       background: linear-gradient(to bottom, rgba(10,20,22,0.15), rgba(10,20,22,0.4));
     }
 
-    .service-body-wrap { padding: 40px 44px 44px; }
+    .service-body-wrap { padding: 40px 44px 32px; }
     .service-num {
       font-family: var(--serif); font-size: 12px; font-weight: 400;
       letter-spacing: 0.3em; color: var(--bronze-pale); margin-bottom: 14px;
@@ -335,7 +335,6 @@
     .service-desc { font-size: 14px; color: rgba(248,246,241,0.7); line-height: 1.85; margin-bottom: 28px; font-weight: 400; }
     .service-capabilities {
       list-style: none; display: flex; flex-direction: column; gap: 8px;
-      margin-bottom: 32px; padding-bottom: 32px; border-bottom: 1px solid var(--divider);
     }
     .service-capabilities li {
       font-size: 11px; color: rgba(248,246,241,0.5);
@@ -542,14 +541,14 @@
 
     .service-card-defense {
       grid-column: 1 / -1;
-      display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+      display: flex; flex-direction: column;
       border: 1px solid var(--divider); border-top: 2px solid var(--bronze-mid);
       background: var(--navy-mid);
       transition: border-color 0.3s;
     }
     .service-card-defense:hover { border-color: var(--bronze-mid); }
-    .service-card-defense .service-img { aspect-ratio: 16/7; }
-    .service-card-defense .service-body-wrap { padding: 48px; display: flex; flex-direction: column; justify-content: center; }
+    .service-card-defense .service-img { aspect-ratio: 21/8; height: auto; width: 100%; }
+    .service-card-defense .service-body-wrap { padding: 48px 64px; display: flex; flex-direction: column; }
     .service-defense-tag { font-size: 9px; letter-spacing: 0.45em; text-transform: uppercase; color: var(--bronze-lt); margin-bottom: 20px; font-family: var(--sans); }
 
     /* HOW WE WORK / FULL SERVICE MODEL SECTION */
@@ -751,7 +750,7 @@
 
       <div class="service-card service-card-defense">
         <div class="service-img">
-          <img src="Images/fm292.jpg" alt="Defense Programs" />
+          <img src="Images/drone%202.png" alt="Defense Programs" />
           <div class="service-img-overlay"></div>
         </div>
         <div class="service-body-wrap">
@@ -815,7 +814,7 @@
 
       <div class="service-card">
         <div class="service-img">
-          <img src="Images/Solace-32-CS_OYD1640.jpg" alt="Comprehensive Engineering" />
+          <img src="Images/41CS-Solace-2023-7.jpg" alt="Comprehensive Engineering" />
           <div class="service-img-overlay"></div>
         </div>
         <div class="service-body-wrap">
@@ -836,7 +835,7 @@
 
       <div class="service-card">
         <div class="service-img">
-          <img src="Images/MG_2581.jpg" alt="3D Scanning" />
+          <img src="Images/JJS00114.jpg" alt="3D Scanning" />
           <div class="service-img-overlay"></div>
         </div>
         <div class="service-body-wrap">
@@ -980,7 +979,7 @@
         </div>
       </div>
       <div class="industry-item ind-defense">
-        <div class="industry-bg"><img src="Images/fm292.jpg" alt="Defense" /></div>
+        <div class="industry-bg"><img src="Images/DJI_20240530030910_0268_D.jpg" alt="Defense" /></div>
         <div class="industry-overlay"></div>
         <div class="industry-content">
           <span class="industry-name">Defense</span>
