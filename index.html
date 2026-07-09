@@ -541,14 +541,14 @@
 
     .service-card-defense {
       grid-column: 1 / -1;
-      display: flex; flex-direction: column;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 0;
       border: 1px solid var(--divider); border-top: 2px solid var(--bronze-mid);
       background: var(--navy-mid);
       transition: border-color 0.3s;
     }
     .service-card-defense:hover { border-color: var(--bronze-mid); }
-    .service-card-defense .service-img { aspect-ratio: 21/8; height: auto; width: 100%; }
-    .service-card-defense .service-body-wrap { padding: 48px 64px; display: flex; flex-direction: column; }
+    .service-card-defense .service-img { aspect-ratio: 16/7; }
+    .service-card-defense .service-body-wrap { padding: 48px; display: flex; flex-direction: column; justify-content: center; }
     .service-defense-tag { font-size: 9px; letter-spacing: 0.45em; text-transform: uppercase; color: var(--bronze-lt); margin-bottom: 20px; font-family: var(--sans); }
 
     /* HOW WE WORK / FULL SERVICE MODEL SECTION */
