@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PT Yacht Design — Naval Architecture & Marine Engineering</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy-deep:   #0a0a0a;
+      --navy:        #111111;
+      --navy-mid:    #1a1a1a;
+      --navy-light:  #242424;
+      --divider:     rgba(255,255,255,0.08);   /* subtle — no blue tint */
+
+      --bronze:      #8c6e42;
+      --bronze-mid:  #a8834f;
+      --bronze-lt:   #c4a06a;
+      --bronze-pale: #d9bb8a;
+
+      --white:       #f8f6f1;
+      --cream:       #f0ece2;
+      --rule:        #d8d3c8;
+
+      --ink:         #1a1a1a;
+      --ink-mid:     #4a4a4a;
+      --ink-light:   #888078;
+
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --sans:  'Montserrat', system-ui, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--white);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-weight: 400;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 28px 64px;
+      transition: all 0.4s;
+    }
+    nav.scrolled {
+      background: rgba(15,15,15,0.97);
+      backdrop-filter: blur(16px);
+      padding: 16px 64px;
+      border-bottom: 1px solid var(--divider);
+    }
+    .nav-logo {
+      text-decoration: none;
+      display: flex; align-items: center; gap: 14px;
+    }
+    .nav-logo-emblem {
+      width: 38px; height: 38px;
+      border: 1px solid var(--bronze-mid);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--serif); font-size: 14px; font-weight: 600;
+      color: var(--bronze-lt); flex-shrink: 0;
+    }
+    .nav-logo-text { display: flex; flex-direction: column; gap: 1px; }
+    .nav-logo-main {
+      font-family: var(--serif); font-size: 18px; font-weight: 600;
+      letter-spacing: 0.1em; color: var(--white); line-height: 1;
+    }
+    .nav-logo-sub {
+      font-size: 8px; letter-spacing: 0.4em;
+      text-transform: uppercase; color: var(--bronze-mid); font-weight: 500;
+    }
+    .nav-links { display: flex; gap: 44px; list-style: none; }
+    .nav-links a {
+      text-decoration: none; color: rgba(248,246,241,0.78);
+      font-size: 10px; letter-spacing: 0.22em;
+      text-transform: uppercase; font-weight: 500;
+      transition: color 0.25s;
+    }
+    .nav-links a:hover { color: var(--white); }
+    .nav-cta {
+      color: var(--bronze-lt) !important;
+      border: 1px solid rgba(168,131,79,0.45);
+      padding: 9px 22px;
+    }
+    .nav-cta:hover { background: var(--bronze-mid); color: var(--white) !important; border-color: var(--bronze-mid) !important; }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative; height: 100vh; min-height: 720px;
+      display: flex; align-items: flex-end; overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(to bottom, rgba(4,8,12,0.5) 0%, rgba(20,20,20,0.15) 35%, rgba(20,20,20,0.55) 70%, rgba(2,8,16,1) 100%),
+        #040c10;
+    }
+    .hero-img {
+      position: absolute; inset: 0; overflow: hidden; opacity: 0.5;
+    }
+    .hero-img img {
+      width: 100%; height: 100%; object-fit: cover; object-position: center 25%; display: block;
+    }
+    .hero-grid {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(168,131,79,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(168,131,79,0.03) 1px, transparent 1px);
+      background-size: 80px 80px;
+    }
+    .hero-content {
+      position: relative; z-index: 2;
+      padding: 0 64px 100px; max-width: 860px;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 14px; margin-bottom: 36px;
+    }
+    .hero-badge-line { width: 32px; height: 1px; background: var(--bronze-mid); }
+    .hero-badge-text {
+      font-size: 9px; letter-spacing: 0.5em; text-transform: uppercase;
+      color: var(--bronze-lt); font-weight: 500;
+    }
+    h1.hero-headline {
+      font-family: var(--serif);
+      font-size: clamp(60px, 8vw, 108px);
+      font-weight: 300; line-height: 0.95;
+      color: var(--white); margin-bottom: 40px;
+    }
+    h1.hero-headline em { font-style: italic; color: var(--bronze-pale); }
+    .hero-rule { width: 1px; height: 48px; background: linear-gradient(to bottom, var(--bronze-mid), transparent); margin-bottom: 28px; }
+    .hero-sub {
+      font-size: 15px; color: rgba(248,246,241,0.88);
+      max-width: 420px; line-height: 1.9; margin-bottom: 52px; font-weight: 400;
+    }
+    .hero-actions { display: flex; align-items: center; gap: 36px; }
+    .btn-bronze {
+      display: inline-block; padding: 15px 40px;
+      background: var(--bronze-mid); color: var(--white);
+      font-size: 10px; letter-spacing: 0.28em;
+      text-transform: uppercase; font-weight: 600;
+      text-decoration: none; border: 1px solid var(--bronze-mid);
+      transition: background 0.25s, transform 0.2s;
+    }
+    .btn-bronze:hover { background: var(--bronze-lt); transform: translateY(-1px); }
+    .btn-ghost-white {
+      display: inline-flex; align-items: center; gap: 12px;
+      font-size: 10px; letter-spacing: 0.22em;
+      text-transform: uppercase; font-weight: 500;
+      color: rgba(248,246,241,0.65); text-decoration: none;
+      transition: color 0.25s, gap 0.25s;
+    }
+    .btn-ghost-white::after { content: '→'; }
+    .btn-ghost-white:hover { color: var(--white); gap: 18px; }
+    .hero-scroll {
+      position: absolute; right: 64px; bottom: 100px;
+      z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 10px;
+    }
+    .hero-scroll span { font-size: 8px; letter-spacing: 0.4em; text-transform: uppercase; color: rgba(248,246,241,0.3); writing-mode: vertical-rl; }
+    .scroll-bar { width: 1px; height: 56px; background: linear-gradient(to bottom, rgba(168,131,79,0.5), transparent); animation: pulse 2.2s ease-in-out infinite; }
+    @keyframes pulse { 0%,100%{opacity:0.4} 50%{opacity:1} }
+
+    /* ── CREDENTIALS BAR ── */
+    .credentials {
+      background: #1a1a1a;
+      border-bottom: 1px solid var(--divider);
+      padding: 0 64px;
+      display: flex; align-items: center;
+    }
+    .cred-label {
+      font-size: 8px; letter-spacing: 0.4em; text-transform: uppercase;
+      color: var(--bronze-mid); font-weight: 500;
+      white-space: nowrap; padding: 20px 36px 20px 0;
+      border-right: 1px solid var(--divider); margin-right: 36px; flex-shrink: 0;
+    }
+    .cred-list { display: flex; gap: 52px; overflow-x: auto; padding: 20px 0; }
+    .cred-list::-webkit-scrollbar { display: none; }
+    .cred-item { font-size: 10px; letter-spacing: 0.12em; color: rgba(248,246,241,0.75); white-space: nowrap; }
+
+    /* ── MANIFESTO ── */
+    .manifesto {
+      background: linear-gradient(to bottom, #1a1a1a 0%, #020810 100%); padding: 128px 64px;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 96px; align-items: start;
+    }
+    .section-label {
+      font-size: 8px; letter-spacing: 0.5em; text-transform: uppercase;
+      color: var(--bronze); font-weight: 600; margin-bottom: 28px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .section-label::before { content: ''; width: 24px; height: 1px; background: var(--bronze); }
+    .manifesto-quote {
+      font-family: var(--serif);
+      font-size: clamp(28px, 3vw, 44px);
+      font-weight: 400; line-height: 1.25; color: var(--white);
+      border-left: 2px solid var(--bronze); padding-left: 32px;
+    }
+    .manifesto-quote em { font-style: italic; color: var(--bronze-pale); }
+    .manifesto-body {
+      font-size: 15px; color: rgba(248,246,241,0.75); line-height: 1.9; margin-bottom: 24px; font-weight: 400;
+    }
+    .manifesto-body strong { font-weight: 500; color: var(--white); }
+    .manifesto-divider { width: 100%; height: 1px; background: var(--divider); margin: 40px 0; }
+    .manifesto-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 32px; }
+    .stat-num { font-family: var(--serif); font-size: 52px; font-weight: 300; color: var(--white); line-height: 1; margin-bottom: 6px; }
+    .stat-num sup { font-size: 24px; vertical-align: top; margin-top: 10px; }
+    .stat-label { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--bronze); font-weight: 500; }
+
+    /* ── DIGITAL TWIN ── */
+    .twin-feature {
+      background: linear-gradient(to bottom, #020810 0%, #1a1a1a 50%, #020810 100%);
+      padding: 128px 64px;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 96px; align-items: center;
+    }
+    .twin-label {
+      font-size: 8px; letter-spacing: 0.5em; text-transform: uppercase;
+      color: var(--bronze-mid); font-weight: 600; margin-bottom: 28px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .twin-label::before { content: ''; width: 24px; height: 1px; background: var(--bronze-mid); }
+    .twin-headline {
+      font-family: var(--serif);
+      font-size: clamp(36px, 4vw, 58px);
+      font-weight: 300; line-height: 1.1; color: var(--white); margin-bottom: 32px;
+    }
+    .twin-headline em { font-style: italic; color: var(--bronze-pale); }
+    .twin-body { font-size: 15px; color: rgba(248,246,241,0.85); line-height: 1.9; margin-bottom: 40px; font-weight: 400; }
+    /* Deliverables as a clean list — no boxes */
+    .twin-deliverables { display: flex; flex-direction: column; gap: 0; }
+    .twin-item {
+      padding: 18px 0;
+      border-bottom: 1px solid var(--divider);
+      display: flex; align-items: flex-start; gap: 20px;
+    }
+    .twin-item:first-child { border-top: 1px solid var(--divider); }
+    .twin-item-num {
+      font-family: var(--serif); font-size: 13px; color: var(--bronze-mid);
+      font-weight: 400; min-width: 20px; padding-top: 2px;
+    }
+    .twin-item-content {}
+    .twin-item-name { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--white); font-weight: 500; margin-bottom: 3px; }
+    .twin-item-desc { font-size: 12px; color: rgba(248,246,241,0.65); line-height: 1.5; }
+    /* Visual */
+    .twin-visual-frame {
+      position: relative; overflow: hidden;
+      aspect-ratio: 4/3;
+      border: 1px solid var(--divider);
+    }
+    .twin-visual-img {
+      position: absolute; inset: 0; overflow: hidden; background: #fff;
+    }
+    .twin-visual-img img {
+      width: 100%; height: 100%; object-fit: contain; display: block;
+    }
+    .twin-visual-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(10,20,22,0.75) 0%, rgba(10,20,22,0.1) 60%, transparent 100%);
+    }
+    .twin-corner-tr { position: absolute; top: 0; right: 0; width: 36px; height: 36px; border-top: 1px solid var(--bronze-mid); border-right: 1px solid var(--bronze-mid); }
+    .twin-corner-bl { position: absolute; bottom: 0; left: 0; width: 36px; height: 36px; border-bottom: 1px solid var(--bronze-mid); border-left: 1px solid var(--bronze-mid); }
+    .twin-caption { position: absolute; bottom: 0; left: 0; right: 0; padding: 28px; }
+    .twin-caption-tag { font-size: 8px; letter-spacing: 0.4em; text-transform: uppercase; color: var(--bronze-lt); margin-bottom: 6px; }
+    .twin-caption-title { font-family: var(--serif); font-size: 20px; font-weight: 300; color: var(--white); }
+
+    /* ── SERVICES ── */
+    .services {
+      background: linear-gradient(to bottom, #020810 0%, #1a1a1a 50%, #020810 100%); padding: 128px 64px;
+      border-top: 1px solid var(--divider);
+    }
+    .services-header {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 64px; align-items: end;
+      margin-bottom: 80px; padding-bottom: 56px;
+      border-bottom: 1px solid var(--divider);
+    }
+    .section-title-large {
+      font-family: var(--serif);
+      font-size: clamp(40px, 4.5vw, 64px);
+      font-weight: 300; line-height: 1.05; color: var(--white); margin-top: 20px;
+    }
+    .services-intro { font-size: 14px; color: rgba(248,246,241,0.65); line-height: 1.85; padding-top: 32px; }
+    .services-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2px; }
+
+    .service-card {
+      background: rgba(255,255,255,0.04);
+      position: relative; overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.09);
+      cursor: pointer; transition: border-color 0.3s;
+    }
+    .service-card:hover { border-color: var(--bronze-mid); }
+    .service-card::after {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+      background: var(--bronze-mid); transform: scaleX(0); transform-origin: left;
+      transition: transform 0.4s ease;
+    }
+    .service-card:hover::after { transform: scaleX(1); }
+
+    /* Image header per card */
+    .service-img {
+      width: 100%; height: 200px; overflow: hidden; position: relative;
+    }
+    .service-img img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.6s ease; display: block;
+      filter: saturate(0.7) brightness(0.85);
+    }
+    .service-card:hover .service-img img { transform: scale(1.04); }
+    .service-img-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, rgba(10,20,22,0.15), rgba(10,20,22,0.4));
+    }
+
+    .service-body-wrap { padding: 40px 44px 44px; }
+    .service-num {
+      font-family: var(--serif); font-size: 12px; font-weight: 400;
+      letter-spacing: 0.3em; color: var(--bronze-pale); margin-bottom: 14px;
+      text-shadow: 0 1px 4px rgba(0,0,0,0.8);
+    }
+    .service-name {
+      font-family: var(--serif); font-size: 28px; font-weight: 400;
+      color: var(--white); line-height: 1.1; margin-bottom: 6px;
+    }
+    .service-discipline {
+      font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--bronze-lt); font-weight: 500; margin-bottom: 24px;
+    }
+    .service-divider { width: 32px; height: 1px; background: var(--bronze); margin-bottom: 20px; }
+    .service-desc { font-size: 14px; color: rgba(248,246,241,0.7); line-height: 1.85; margin-bottom: 28px; font-weight: 400; }
+    .service-capabilities {
+      list-style: none; display: flex; flex-direction: column; gap: 8px;
+      margin-bottom: 32px; padding-bottom: 32px; border-bottom: 1px solid var(--divider);
+    }
+    .service-capabilities li {
+      font-size: 11px; color: rgba(248,246,241,0.5);
+      padding-left: 20px; position: relative; line-height: 1.5;
+    }
+    .service-capabilities li::before { content: '—'; position: absolute; left: 0; color: var(--bronze); font-size: 10px; }
+    .service-link {
+      font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 500;
+      color: rgba(248,246,241,0.7); text-decoration: none;
+      display: inline-flex; align-items: center; gap: 10px; transition: gap 0.25s, color 0.25s;
+    }
+    .service-link::after { content: '→'; color: var(--bronze); }
+    .service-link:hover { gap: 16px; color: var(--bronze-lt); }
+
+    /* ── PORTFOLIO STRIP ── */
+    .portfolio {
+      background: var(--navy-deep); padding: 80px 0;
+      border-top: 1px solid var(--divider);
+      overflow: hidden;
+    }
+    .portfolio-header {
+      padding: 0 64px; margin-bottom: 48px;
+      display: flex; align-items: flex-end; justify-content: space-between;
+    }
+    .portfolio-title {
+      font-family: var(--serif); font-size: clamp(32px, 3.5vw, 48px);
+      font-weight: 300; color: var(--white); margin-top: 16px;
+    }
+    .portfolio-link {
+      font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+      font-weight: 500; color: var(--bronze-mid); text-decoration: none;
+      display: inline-flex; align-items: center; gap: 10px;
+      transition: gap 0.25s; padding-bottom: 6px;
+    }
+    .portfolio-link::after { content: '→'; }
+    .portfolio-link:hover { gap: 16px; color: var(--bronze-lt); }
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 2px; padding: 0 64px;
+    }
+    .portfolio-item {
+      position: relative; overflow: hidden; cursor: pointer;
+    }
+    .portfolio-item:first-child { aspect-ratio: 4/3; }
+    .portfolio-item:not(:first-child) { aspect-ratio: 1; }
+    .portfolio-img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      transition: transform 0.6s ease;
+      filter: saturate(0.75) brightness(0.8);
+    }
+    .portfolio-item:hover .portfolio-img { transform: scale(1.05); filter: saturate(0.8) brightness(0.85); }
+    .portfolio-item-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(10,20,22,0.7) 0%, transparent 50%);
+    }
+    .portfolio-item-label {
+      position: absolute; bottom: 16px; left: 20px; right: 20px;
+    }
+    .portfolio-item-name {
+      font-family: var(--serif); font-size: 16px; font-weight: 300; color: var(--white); line-height: 1.2;
+    }
+    .portfolio-item-type {
+      font-size: 8px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--bronze-lt); margin-top: 3px;
+    }
+    /* Second row */
+    .portfolio-grid-2 {
+      display: grid; grid-template-columns: 1fr 1fr 2fr; gap: 2px;
+      padding: 2px 64px 0; margin-top: 0;
+    }
+    .portfolio-grid-2 .portfolio-item { aspect-ratio: 16/9; }
+    .portfolio-grid-2 .portfolio-item:last-child { aspect-ratio: 16/6; }
+
+    /* ── LEADERSHIP ── */
+    .leadership {
+      background: var(--navy-deep); padding: 128px 64px;
+      display: grid; grid-template-columns: 360px 1fr;
+      gap: 96px; align-items: start;
+    }
+    .portrait-frame {
+      position: relative; overflow: hidden;
+      aspect-ratio: 3/4;
+      border: 1px solid var(--divider);
+    }
+    .portrait-img {
+      position: absolute; inset: 0;
+      background-image: url('Images/Dustin Johnson.JPG');
+      background-size: cover; background-position: center top;
+      background-color: #0a1416;
+    }
+    .portrait-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(10,20,22,0.5) 0%, transparent 60%); }
+    .portrait-corner-tr { position: absolute; top: 0; right: 0; width: 36px; height: 36px; border-top: 1px solid var(--bronze-mid); border-right: 1px solid var(--bronze-mid); }
+    .portrait-corner-bl { position: absolute; bottom: 0; left: 0; width: 36px; height: 36px; border-bottom: 1px solid var(--bronze-mid); border-left: 1px solid var(--bronze-mid); }
+    .portrait-caption { margin-top: 20px; }
+    .portrait-name { font-family: var(--serif); font-size: 22px; font-weight: 400; color: var(--white); margin-bottom: 4px; }
+    .portrait-title { font-size: 9px; letter-spacing: 0.35em; text-transform: uppercase; color: var(--bronze-mid); }
+
+    .leadership-bio {
+      font-family: var(--serif);
+      font-size: clamp(22px, 2.4vw, 32px);
+      font-weight: 300; line-height: 1.4; color: var(--white);
+      margin-bottom: 36px; margin-top: 20px;
+    }
+    .leadership-bio em { font-style: italic; color: var(--bronze-pale); }
+    .leadership-body { font-size: 15px; color: rgba(248,246,241,0.82); line-height: 1.9; margin-bottom: 20px; font-weight: 400; }
+    .leadership-divider { width: 100%; height: 1px; background: var(--divider); margin: 36px 0; }
+    .career-item {
+      padding: 18px 0; border-bottom: 1px solid var(--divider);
+      display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: start;
+    }
+    .career-role { font-size: 13px; font-weight: 500; color: var(--white); margin-bottom: 2px; }
+    .career-company { font-size: 11px; color: var(--bronze-mid); }
+    .career-years { font-size: 10px; color: rgba(248,246,241,0.45); font-family: var(--serif); white-space: nowrap; padding-top: 3px; }
+
+    /* ── PROCESS ── */
+    .process { background: linear-gradient(to bottom, #020810 0%, #1a1a1a 100%); padding: 128px 64px; border-top: 1px solid var(--divider); }
+    .process-header { margin-bottom: 80px; }
+    .process-grid { display: grid; grid-template-columns: repeat(4,1fr); position: relative; }
+    .process-grid::before {
+      content: ''; position: absolute;
+      top: 20px; left: 20px; right: 20px; height: 1px;
+      background: linear-gradient(to right, var(--bronze), rgba(255,255,255,0.15), var(--bronze));
+    }
+    .process-step { padding: 0 40px 0 0; }
+    .step-marker {
+      width: 40px; height: 40px; border: 1px solid var(--bronze);
+      background: transparent; display: flex; align-items: center; justify-content: center;
+      font-family: var(--serif); font-size: 15px; color: var(--bronze);
+      margin-bottom: 32px; position: relative; z-index: 1;
+    }
+    .step-title { font-family: var(--serif); font-size: 22px; font-weight: 400; color: var(--white); margin-bottom: 14px; }
+    .step-body { font-size: 14px; color: rgba(248,246,241,0.7); line-height: 1.8; font-weight: 400; }
+
+    /* ── INDUSTRIES ── */
+    .industries { background: var(--navy); padding: 128px 64px; border-top: 1px solid var(--divider); }
+    .industries-header { display: grid; grid-template-columns: 1fr 1fr; align-items: end; margin-bottom: 64px; }
+    .industries-title { font-family: var(--serif); font-size: clamp(36px, 4vw, 56px); font-weight: 300; color: var(--white); margin-top: 20px; }
+    .industries-intro { font-size: 13px; color: rgba(248,246,241,0.70); line-height: 1.85; align-self: end; padding-top: 24px; }
+    .industries-grid {
+      display: grid; grid-template-columns: repeat(4,1fr); gap: 2px;
+    }
+    .industry-item {
+      position: relative; overflow: hidden; cursor: pointer; aspect-ratio: 2/3;
+    }
+    .industry-bg {
+      position: absolute; inset: 0; overflow: hidden;
+      transition: transform 0.6s ease; filter: saturate(0.65) brightness(0.6);
+    }
+    .industry-bg img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .industry-item:hover .industry-bg { transform: scale(1.05); filter: saturate(0.7) brightness(0.65); }
+    .industry-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(10,20,22,0.9) 0%, rgba(10,20,22,0.3) 60%, transparent 100%); }
+    .industry-content { position: absolute; bottom: 0; left: 0; right: 0; padding: 32px; }
+    .industry-name { font-family: var(--serif); font-size: 24px; font-weight: 300; color: var(--white); display: block; margin-bottom: 6px; }
+    .industry-sub { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--bronze-lt); }
+    /* Industry placeholders */
+
+    /* ── CTA ── */
+    .cta-section {
+      background: var(--navy-deep); padding: 128px 64px;
+      border-top: 1px solid var(--divider); position: relative; overflow: hidden;
+    }
+    .cta-bg-word {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+      font-family: var(--serif); font-size: 260px; font-weight: 300;
+      color: rgba(255,255,255,0.015); white-space: nowrap; pointer-events: none; user-select: none;
+    }
+    .cta-inner {
+      position: relative; z-index: 1;
+      display: grid; grid-template-columns: 1fr auto;
+      gap: 80px; align-items: center;
+    }
+    .cta-title {
+      font-family: var(--serif);
+      font-size: clamp(36px, 4.5vw, 64px);
+      font-weight: 300; line-height: 1.1; color: var(--white);
+    }
+    .cta-title em { font-style: italic; color: var(--bronze-pale); }
+    .cta-actions { display: flex; flex-direction: column; gap: 16px; align-items: flex-start; }
+
+    /* ── FOOTER ── */
+    footer { background: var(--navy-deep); border-top: 1px solid var(--divider); padding: 72px 64px 40px; }
+    .footer-grid {
+      display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr;
+      gap: 64px; margin-bottom: 64px; padding-bottom: 64px;
+      border-bottom: 1px solid var(--divider);
+    }
+    .footer-mark {
+      width: 48px; height: 48px; border: 1px solid var(--bronze-mid); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--serif); font-size: 18px; font-weight: 600;
+      color: var(--bronze-lt); margin-bottom: 20px;
+    }
+    .footer-brand-name { font-family: var(--serif); font-size: 20px; font-weight: 600; letter-spacing: 0.08em; color: var(--white); display: block; margin-bottom: 4px; }
+    .footer-brand-sub { font-size: 8px; letter-spacing: 0.4em; text-transform: uppercase; color: var(--bronze-mid); display: block; margin-bottom: 20px; }
+    .footer-tagline { font-size: 13px; color: rgba(248,246,241,0.75); line-height: 1.7; max-width: 240px; }
+    .footer-col-title { font-size: 8px; letter-spacing: 0.45em; text-transform: uppercase; color: var(--bronze-mid); font-weight: 600; margin-bottom: 20px; }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 13px; }
+    .footer-links a { text-decoration: none; color: rgba(248,246,241,0.65); font-size: 12px; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--bronze-lt); }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; }
+    .footer-copy { font-size: 11px; color: rgba(248,246,241,0.40); }
+    .footer-mfg-link { font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(248,246,241,0.40); text-decoration: none; transition: color 0.2s; }
+    .footer-mfg-link:hover { color: var(--bronze-mid); }
+
+    .service-card-defense {
+      grid-column: 1 / -1;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+      border: 1px solid var(--divider); border-top: 2px solid var(--bronze-mid);
+      background: var(--navy-mid);
+      transition: border-color 0.3s;
+    }
+    .service-card-defense:hover { border-color: var(--bronze-mid); }
+    .service-card-defense .service-img { aspect-ratio: 16/7; }
+    .service-card-defense .service-body-wrap { padding: 48px; display: flex; flex-direction: column; justify-content: center; }
+    .service-defense-tag { font-size: 9px; letter-spacing: 0.45em; text-transform: uppercase; color: var(--bronze-lt); margin-bottom: 20px; font-family: var(--sans); }
+
+    /* HOW WE WORK / FULL SERVICE MODEL SECTION */
+    .model-section {
+      padding: 100px 80px;
+      background: var(--navy-mid);
+      border-top: 1px solid var(--divider);
+    }
+    .model-eyebrow {
+      font-size: 9px; letter-spacing: 0.45em; text-transform: uppercase;
+      color: var(--bronze-mid); font-family: var(--sans); margin-bottom: 24px;
+    }
+    .model-headline {
+      font-family: var(--serif); font-size: clamp(28px, 3.5vw, 48px);
+      font-weight: 300; color: var(--white); line-height: 1.2; margin-bottom: 20px;
+    }
+    .model-headline em { font-style: italic; color: var(--bronze-pale); }
+    .model-quote {
+      font-family: var(--serif); font-size: clamp(16px, 1.8vw, 22px);
+      font-weight: 300; font-style: italic; color: var(--bronze-lt);
+      border-left: 2px solid var(--bronze-mid); padding-left: 24px;
+      margin: 40px 0 56px;
+    }
+    .model-tiers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 56px; }
+    .model-tier {
+      background: var(--navy-light); padding: 40px 32px;
+      border: 1px solid var(--divider); border-top: 2px solid transparent;
+      transition: border-top-color 0.3s;
+    }
+    .model-tier:hover { border-top-color: var(--bronze-mid); }
+    .model-tier-num { font-size: 9px; letter-spacing: 0.4em; text-transform: uppercase; color: var(--bronze-mid); font-family: var(--sans); margin-bottom: 20px; }
+    .model-tier-title { font-family: var(--serif); font-size: 22px; font-weight: 400; color: var(--white); margin-bottom: 16px; line-height: 1.2; }
+    .model-tier-body { font-size: 14px; color: rgba(248,246,241,0.75); line-height: 1.8; }
+    .model-tier-body strong { color: var(--white); font-weight: 600; }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="nav">
+    <a href="#" class="nav-logo">
+      <div class="nav-logo-emblem">PT</div>
+      <div class="nav-logo-text">
+        <span class="nav-logo-main">PTYD</span>
+        <span class="nav-logo-sub">PT Yacht Design</span>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#twin">Digital Twin</a></li>
+      <li><a href="#model">Our Model</a></li>
+      <li><a href="#contact" class="nav-cta">Start a Project</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-img"><img src="Images/41CS1.jpg" alt="" /></div>
+    <div class="hero-grid"></div>
+    <div class="hero-content">
+      <div class="hero-badge">
+        <div class="hero-badge-line"></div>
+        <span class="hero-badge-text">Naval Architecture & Marine Engineering</span>
+      </div>
+      <h1 class="hero-headline">
+        Build Better<br/>
+        <em>by Design.</em>
+      </h1>
+      <div class="hero-rule"></div>
+      <p class="hero-sub">
+        New boat models from concept to production-ready tooling — with a precision and pace the industry has never seen. Hull design, engineering, systems, tooling. Every discipline, one team.
+      </p>
+      <div class="hero-actions">
+        <a href="https://form.jotform.com/251104285772152" target="_blank" class="btn-bronze">Start a Program</a>
+        <a href="#services" class="btn-ghost-white">Our Disciplines</a>
+      </div>
+    </div>
+    <div class="hero-scroll">
+      <div class="scroll-bar"></div>
+      <span>Scroll</span>
+    </div>
+  </section>
+
+  <!-- CREDENTIALS BAR -->
+  <div class="credentials">
+    <span class="cred-label">Credentials</span>
+    <div class="cred-list">
+      <span class="cred-item">SNAME — Society of Naval Architects & Marine Engineers</span>
+      <span class="cred-item">ASNE — American Society of Naval Engineers</span>
+      <span class="cred-item">NMMA Standards Compliance Specialist</span>
+      <span class="cred-item">Lean Six Sigma Black Belt</span>
+      <span class="cred-item">Offshore Race Team</span>
+      <span class="cred-item">24+ Hull Programs Delivered</span>
+    </div>
+  </div>
+
+  <!-- MANIFESTO -->
+  <section class="manifesto">
+    <div>
+      <p class="section-label">Our Approach</p>
+      <blockquote class="manifesto-quote">
+        We sell design certainty. Clients come to us when they need to get a new model right the first time —
+        <em>on schedule, manufacturable, and built to perform.</em>
+      </blockquote>
+    </div>
+    <div>
+      <p class="manifesto-body">
+        PT Yacht Design is a full-service marine design and engineering firm. We take new boat models from concept to production-ready tooling at an aggressive pace, with precision that rivals much larger teams. <strong>Naval architecture, design, engineering, and tooling under one roof — no handoffs between firms.</strong>
+      </p>
+      <p class="manifesto-body">
+        Our team has composite and manufacturing backgrounds, not just CAD experience. Every surface decision is made with tooling, assembly, and production cost already in mind. The result: a program that moves faster, costs less to execute, and delivers a vessel that performs exactly as designed.
+      </p>
+      <div class="manifesto-divider"></div>
+      <div class="manifesto-stats">
+        <div>
+          <div class="stat-num">24<sup>+</sup></div>
+          <div class="stat-label">Hull programs</div>
+        </div>
+        <div>
+          <div class="stat-num">6</div>
+          <div class="stat-label">Core disciplines</div>
+        </div>
+        <div>
+          <div class="stat-num">24</div>
+          <div class="stat-label">Week program cadence</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DIGITAL TWIN -->
+  <section class="twin-feature" id="twin">
+    <div>
+      <p class="twin-label">Signature Capability</p>
+      <h2 class="twin-headline">
+        Every project<br/>delivered as a<br/><em>complete digital twin.</em>
+      </h2>
+      <p class="twin-body">
+        From first hull line to production-ready construction package — every PTYD engagement concludes with a fully resolved digital twin. Your team inherits a master CAD model, accurate BOM, and construction drawings your shop can build from on day one.
+      </p>
+      <div class="twin-deliverables">
+        <div class="twin-item">
+          <div class="twin-item-num">01</div>
+          <div class="twin-item-content">
+            <div class="twin-item-name">Master CAD Model</div>
+            <div class="twin-item-desc">Fully resolved, layer-organized, production intent</div>
+          </div>
+        </div>
+        <div class="twin-item">
+          <div class="twin-item-num">02</div>
+          <div class="twin-item-content">
+            <div class="twin-item-name">Bill of Materials</div>
+            <div class="twin-item-desc">Accurate BOM organized by work area</div>
+          </div>
+        </div>
+        <div class="twin-item">
+          <div class="twin-item-num">03</div>
+          <div class="twin-item-content">
+            <div class="twin-item-name">Construction Drawings</div>
+            <div class="twin-item-desc">Turn-key: laminate, assembly, trim & grind</div>
+          </div>
+        </div>
+        <div class="twin-item">
+          <div class="twin-item-num">04</div>
+          <div class="twin-item-content">
+            <div class="twin-item-name">ABYC / NMMA Compliance</div>
+            <div class="twin-item-desc">Engineering compliance built into the deliverable</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="twin-visual-frame">
+        <div class="twin-visual-img"><img src="Images/J Iso Half Exposed.jpg" alt="Digital Twin" /></div>
+        <div class="twin-visual-overlay"></div>
+        <div class="twin-corner-tr"></div>
+        <div class="twin-corner-bl"></div>
+        <div class="twin-caption">
+          <div class="twin-caption-tag">Digital Twin · Complete Assembly</div>
+          <div class="twin-caption-title">Production-ready from day one</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="services" id="services">
+    <div class="services-header">
+      <div>
+        <p class="section-label">Engineering Disciplines</p>
+        <h2 class="section-title-large">Every phase.<br/><em style="font-style:italic;color:var(--bronze-pale)">One team.</em></h2>
+      </div>
+      <p class="services-intro">
+        Whether you need a hull optimized for record-setting performance, class-A surface modeling ready for production, or a complete systems package from concept through construction drawings — our four disciplines work seamlessly together or independently.
+      </p>
+    </div>
+    <div class="services-grid">
+
+      <div class="service-card service-card-defense">
+        <div class="service-img">
+          <img src="Images/fm292.jpg" alt="Defense Programs" />
+          <div class="service-img-overlay"></div>
+        </div>
+        <div class="service-body-wrap">
+          <div class="service-defense-tag">Defense &amp; Autonomous Systems</div>
+          <div class="service-num">07 — Defense Programs</div>
+          <h3 class="service-name">Platform Engineering<br/>for Defense Applications</h3>
+          <p class="service-discipline">AUTONOMOUS SYSTEMS · PAYLOAD INTEGRATION · USV / UUV</p>
+          <div class="service-divider"></div>
+          <p class="service-desc">You bring the mission. We create the package, from concept to water-ready. Rapid development, accelerated tooling, and manufacturing all under one roof. We engineer the platform around your autonomous stack: hull geometry, payload bay definition, interface requirements, and producibility baked in from day one.</p>
+          <ul class="service-capabilities">
+            <li>Hull geometry engineered for USV, UUV, and autonomous platforms</li>
+            <li>Payload bay definition and interface requirements</li>
+            <li>Structural and systems engineering for defense environments</li>
+            <li>Accelerated tooling and manufacturing under one roof</li>
+            <li>Concept to water-ready, on your program timeline</li>
+          </ul>
+          <a href="https://form.jotform.com/251104285772152" target="_blank" class="service-link">Discuss your program</a>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-img">
+          <img src="Images/EMNNicolson-Solace-Boats-28HCS-2nd-74-scaled.jpg" alt="Naval Architecture" />
+          <div class="service-img-overlay"></div>
+        </div>
+        <div class="service-body-wrap">
+          <div class="service-num">01 — Naval Architecture</div>
+          <h3 class="service-name">Hull Design &<br/>Performance Engineering</h3>
+          <p class="service-discipline">Hydrostatics · CFD · Performance Predictions</p>
+          <div class="service-divider"></div>
+          <p class="service-desc">Race-proven hull design for high-performance catamarans and monohulls. We adapt offshore-proven elements — steps, pads, compression tunnels, notched transoms — to vessels that carry more weight on less power.</p>
+          <ul class="service-capabilities">
+            <li>High-performance catamaran & monohull specialization</li>
+            <li>Hydrostatics: weight, waterlines & trim analysis</li>
+            <li>CFD validation — Orca with Simerics</li>
+            <li>Performance predictions: engine packages & load conditions</li>
+            <li>Reverse/drop chines, lateral stability elements</li>
+          </ul>
+          <a href="https://form.jotform.com/251104285772152" target="_blank" class="service-link">Discuss your hull</a>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-img">
+          <img src="Images/Jupiter 340ls.jpg" alt="Design Studio" />
+          <div class="service-img-overlay"></div>
+        </div>
+        <div class="service-body-wrap">
+          <div class="service-num">02 — Design Studio</div>
+          <h3 class="service-name">Surface Modeling &<br/>Design Development</h3>
+          <p class="service-discipline">Class-A Surfacing · Composite-Aware · Digital Twin</p>
+          <div class="service-divider"></div>
+          <p class="service-desc">Refined design blending high performance with classic detail. Our surface modeling accounts for composite behavior after lamination — designing out concavity before it becomes a problem in the mold.</p>
+          <ul class="service-capabilities">
+            <li>Class-A surfacing refined from every angle</li>
+            <li>Composite-aware modeling (post-lamination shrink designed out)</li>
+            <li>Innovative joint methodology: intuitive bonding & assembly</li>
+            <li>Articulating assemblies, pantographic hinges, weldments</li>
+            <li>Full CAD model management for seamless team collaboration</li>
+          </ul>
+          <a href="https://form.jotform.com/251104285772152" target="_blank" class="service-link">Explore design</a>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-img">
+          <img src="Images/Solace-32-CS_OYD1640.jpg" alt="Comprehensive Engineering" />
+          <div class="service-img-overlay"></div>
+        </div>
+        <div class="service-body-wrap">
+          <div class="service-num">03 — Comprehensive Engineering</div>
+          <h3 class="service-name">Systems Engineering &<br/>Production Solutions</h3>
+          <p class="service-discipline">Mechanical · Structural · Plumbing · Propulsion</p>
+          <div class="service-divider"></div>
+          <p class="service-desc">Full mechanical, structural, plumbing, and propulsion systems development — delivered as a complete digital twin. ABYC/NMMA compliant. Production-ready from day one.</p>
+          <ul class="service-capabilities">
+            <li>Complete systems digital twin with accurate BOM</li>
+            <li>Serviceability, installation & offline sub-assembly planning</li>
+            <li>ABYC / NMMA engineering compliance</li>
+            <li>Turn-key construction drawing package</li>
+            <li>Manufacturing aids: turners, fixtures, harness tables</li>
+          </ul>
+          <a href="https://form.jotform.com/251104285772152" target="_blank" class="service-link">Start engineering</a>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-img">
+          <img src="Images/MG_2581.jpg" alt="3D Scanning" />
+          <div class="service-img-overlay"></div>
+        </div>
+        <div class="service-body-wrap">
+          <div class="service-num">04 — Metrology Services</div>
+          <h3 class="service-name">3D Scanning &<br/>Reverse Engineering</h3>
+          <p class="service-discipline">0.030mm Accuracy · Digital Capture · Inspection</p>
+          <div class="service-divider"></div>
+          <p class="service-desc">Metrology-grade laser scanning at 0.030mm (0.001") accuracy. We digitize existing patterns, molds, and parts — optimizing geometry for surface finish, symmetry, draft, and integration into your next development cycle.</p>
+          <ul class="service-capabilities">
+            <li>0.030mm metrology-grade laser scanning</li>
+            <li>Surface model CAD: symmetry, filleting, draft optimization</li>
+            <li>Tooling verification & first article inspection</li>
+            <li>As-built MEP, assemblies, interiors</li>
+            <li>Hand-fabricated component integration into CAD</li>
+          </ul>
+          <a href="https://form.jotform.com/251104285772152" target="_blank" class="service-link">Request a scan</a>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-img">
+          <img src="Images/Fm291.jpg" alt="Tooling Design" />
+          <div class="service-img-overlay"></div>
+        </div>
+        <div class="service-body-wrap">
+          <div class="service-num">05 — Tooling Design</div>
+          <h3 class="service-name">Mold & Tooling<br/>Engineering</h3>
+          <p class="service-discipline">Mold Flanges · LPT · LRTM · CNC-Ready</p>
+          <div class="service-divider"></div>
+          <p class="service-desc">Production-ready mold geometry engineered for your process. Draft analysis, part splits, and CNC-ready releases designed to eliminate problems before the tool is cut.</p>
+          <ul class="service-capabilities">
+            <li>Mold flange design and multi-part split mold development</li>
+            <li>LPT, LRTM, and vacuum infusion process design</li>
+            <li>Draft analysis and pull direction optimization</li>
+            <li>CNC-ready geometry release</li>
+            <li>Tooling fixtures and manufacturing aids</li>
+          </ul>
+          <a href="https://form.jotform.com/251104285772152" target="_blank" class="service-link">Discuss tooling</a>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-img">
+          <img src="Images/34cat.jpg" alt="Prototype Integration" />
+          <div class="service-img-overlay"></div>
+        </div>
+        <div class="service-body-wrap">
+          <div class="service-num">06 — Prototype Integration</div>
+          <h3 class="service-name">Build Sequence &<br/>Production Handoff</h3>
+          <p class="service-discipline">BOM · Construction Docs · First Article</p>
+          <div class="service-divider"></div>
+          <p class="service-desc">We don't just hand off drawings. We walk manufacturers through to first article — build sequences, QC checkpoints, and production documentation that make your launch day as clean as the design.</p>
+          <ul class="service-capabilities">
+            <li>Build sequence and construction documentation</li>
+            <li>Accurate BOM organized by work area</li>
+            <li>QC checkpoints and first article inspection support</li>
+            <li>Production handoff and on-site integration</li>
+            <li>ABYC / NMMA compliance documentation</li>
+          </ul>
+          <a href="https://form.jotform.com/251104285772152" target="_blank" class="service-link">Start a program</a>
+        </div>
+      </div>
+
+
+    </div>
+  </section>
+
+
+  <!-- FULL SERVICE MODEL -->
+  <section class="model-section" id="model">
+    <p class="model-eyebrow">The PT Yacht Design Model</p>
+    <h2 class="model-headline">We take your concept<br/>all the way <em>to the water.</em></h2>
+    <p class="model-quote">"Most design firms hand you drawings and walk away. We stay in the room."</p>
+    <p style="font-size:15px; color:rgba(248,246,241,0.8); line-height:1.9; max-width:780px;">
+      Whether you have a napkin sketch or a rough design file, PTYD takes your concept through every phase: naval architecture, engineering, tooling, and manufacturing. You choose how far you want us to go. We have done this 24+ times across the US marine industry, for startups and established brands alike. Every program is delivered on a defined timeline with a complete digital twin your team can build from on day one.
+    </p>
+    <div class="model-tiers">
+      <div class="model-tier">
+        <div class="model-tier-num">Path 01</div>
+        <div class="model-tier-title">Engineering &amp; Design Deliverables</div>
+        <p class="model-tier-body">We deliver the full engineering package: naval architecture, Class-A surfacing, structural and systems engineering, construction drawings, renders, and a complete digital twin. <strong>You take it to your own manufacturer.</strong> Same deliverable quality used by Fountain, Solace, Freeman, and more.</p>
+      </div>
+      <div class="model-tier">
+        <div class="model-tier-num">Path 02</div>
+        <div class="model-tier-title">Engineering + ProtoTech Manufacturing</div>
+        <p class="model-tier-body">Engineering and manufacturing under one roof at our Washington, NC facility. When your engineering team is on the same floor as your molds, <strong>problems get solved the same day — not the same month.</strong> We build your tooling and ship you production-ready molds.</p>
+      </div>
+      <div class="model-tier">
+        <div class="model-tier-num">Path 03</div>
+        <div class="model-tier-title">Engineering + Your Own Facility Standup</div>
+        <p class="model-tier-body">We help you build and stand up your own manufacturing operation — ready to receive molds and begin production. <strong>This is the ProtoTech model:</strong> your concept, your brand, your facility. We help you get there from zero. This is what ProtoType means.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="process">
+    <div class="process-header">
+      <p class="section-label">How We Work</p>
+      <h2 class="section-title-large" style="margin-top:20px;">24 weeks.<br/><em style="font-style:italic;color:var(--bronze-pale)">Concept to tooling.</em></h2>
+    </div>
+    <div class="process-grid">
+      <div class="process-step">
+        <div class="step-marker">I</div>
+        <h3 class="step-title">Kickoff & Design Requirements</h3>
+        <p class="step-body">Client brief, design parameters, performance targets. FRP list established. Program launched with precision — alignment before a line is drawn.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-marker">II</div>
+        <h3 class="step-title">Concept & Naval Architecture</h3>
+        <p class="step-body">Hull development, interior arrangement, hydrostatics, and CFD validation. Performance confirmed before a mold is cut.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-marker">III</div>
+        <h3 class="step-title">Engineering & Systems</h3>
+        <p class="step-body">Structural analysis, systems integration, BOM development. Production-level documentation built alongside the model — every system resolved in CAD first.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-marker">IV</div>
+        <h3 class="step-title">Tooling Release & Handoff</h3>
+        <p class="step-body">Mold-ready geometry, CNC files, construction documents, and QC frameworks. Prototype integration through first article.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- INDUSTRIES -->
+  <section class="industries" id="industries">
+    <div class="industries-header">
+      <div>
+        <p class="twin-label">Markets</p>
+        <h2 class="industries-title">Industries<br/>we serve.</h2>
+      </div>
+      <p class="industries-intro">
+        Our engineering methodology applies across any industry where performance, precision, and composite construction intersect — from high-speed powerboats to architectural installations.
+      </p>
+    </div>
+    <div class="industries-grid">
+      <div class="industry-item ind-marine">
+        <div class="industry-bg"><img src="Images/41CS 2.jpg" alt="Marine" /></div>
+        <div class="industry-overlay"></div>
+        <div class="industry-content">
+          <span class="industry-name">Marine</span>
+          <span class="industry-sub">Powerboats · Yachts · Commercial</span>
+        </div>
+      </div>
+      <div class="industry-item ind-defense">
+        <div class="industry-bg"><img src="Images/fm292.jpg" alt="Defense" /></div>
+        <div class="industry-overlay"></div>
+        <div class="industry-content">
+          <span class="industry-name">Defense</span>
+          <span class="industry-sub">Naval · Unmanned · Tactical</span>
+        </div>
+      </div>
+      <div class="industry-item ind-arch">
+        <div class="industry-bg"><img src="Images/PT Yacht Design - Drone 1.jpg" alt="Architecture" /></div>
+        <div class="industry-overlay"></div>
+        <div class="industry-content">
+          <span class="industry-name">Architecture</span>
+          <span class="industry-sub">Facades · Sculptural · Composite</span>
+        </div>
+      </div>
+      <div class="industry-item ind-transport">
+        <div class="industry-bg"><img src="Images/Jupiter 340ls.jpg" alt="Transportation" /></div>
+        <div class="industry-overlay"></div>
+        <div class="industry-content">
+          <span class="industry-name">Transportation</span>
+          <span class="industry-sub">Automotive · RV · Specialty</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROGRAMS -->
+  <section style="background: linear-gradient(to bottom, #020810 0%, #1a1a1a 50%, #020810 100%); padding: 128px 64px; border-top: 1px solid var(--divider);">
+    <div>
+      <p class="twin-label">Programs</p>
+      <h2 style="font-family: var(--serif); font-size: clamp(40px, 4.5vw, 64px); font-weight: 300; line-height: 1.05; color: var(--white); margin-top: 20px; margin-bottom: 16px;">Trusted by builders<br/>who demand more.</h2>
+      <p style="font-size: 15px; color: rgba(248,246,241,0.65); max-width: 520px; line-height: 1.85; margin-bottom: 64px;">24+ hull programs across performance catamarans, stepped monohulls, and production sport boats.</p>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--divider); border: 1px solid var(--divider);">
+
+        <div style="background: rgba(255,255,255,0.03); padding: 44px; transition: background 0.25s;" onmouseover="this.style.background='rgba(20,20,20,0.1)'" onmouseout="this.style.background='rgba(255,255,255,0.03)'">
+          <div style="font-size: 9px; letter-spacing: 0.35em; text-transform: uppercase; color: var(--bronze-lt); margin-bottom: 10px;">Fountain Powerboats</div>
+          <div style="font-family: var(--serif); font-size: 24px; font-weight: 400; color: var(--white); margin-bottom: 6px;">Thunder Cat · Lightning · Kilo · 38CC · 32NX</div>
+          <div style="font-size: 12px; color: rgba(248,246,241,0.5); margin-bottom: 20px;">Stepped Monohulls & Catamaran</div>
+          <div style="font-size: 12px; color: rgba(248,246,241,0.4); line-height: 1.7; padding-top: 20px; border-top: 1px solid var(--divider);">Naval architecture, hull design, and tooling engineering across five high-performance platforms.</div>
+        </div>
+
+        <div style="background: rgba(255,255,255,0.03); padding: 44px; transition: background 0.25s;" onmouseover="this.style.background='rgba(20,20,20,0.1)'" onmouseout="this.style.background='rgba(255,255,255,0.03)'">
+          <div style="font-size: 9px; letter-spacing: 0.35em; text-transform: uppercase; color: var(--bronze-lt); margin-bottom: 10px;">Solace Boats</div>
+          <div style="font-family: var(--serif); font-size: 24px; font-weight: 400; color: var(--white); margin-bottom: 6px;">9 Models · 28–42 ft</div>
+          <div style="font-size: 12px; color: rgba(248,246,241,0.5); margin-bottom: 20px;">Stepped Monohulls & Center Console</div>
+          <div style="font-size: 12px; color: rgba(248,246,241,0.4); line-height: 1.7; padding-top: 20px; border-top: 1px solid var(--divider);">Largest single-client portfolio. Full PD&E services across an entire production lineup.</div>
+        </div>
+
+        <div style="background: rgba(255,255,255,0.03); padding: 44px; transition: background 0.25s;" onmouseover="this.style.background='rgba(20,20,20,0.1)'" onmouseout="this.style.background='rgba(255,255,255,0.03)'">
+          <div style="font-size: 9px; letter-spacing: 0.35em; text-transform: uppercase; color: var(--bronze-lt); margin-bottom: 10px;">Chaparral Boats</div>
+          <div style="font-family: var(--serif); font-size: 24px; font-weight: 400; color: var(--white); margin-bottom: 6px;">337SSX · SSX8 · SSX8OB · GTS8</div>
+          <div style="font-size: 12px; color: rgba(248,246,241,0.5); margin-bottom: 20px;">Traditional Monohulls · 23–29 ft</div>
+          <div style="font-size: 12px; color: rgba(248,246,241,0.4); line-height: 1.7; padding-top: 20px; border-top: 1px solid var(--divider);">Hull design and naval architecture for four production platforms. SSX8OB and SSX8 completed 2026.</div>
+        </div>
+
+        <div style="background: rgba(255,255,255,0.03); padding: 44px; transition: background 0.25s;" onmouseover="this.style.background='rgba(20,20,20,0.1)'" onmouseout="this.style.background='rgba(255,255,255,0.03)'">
+          <div style="font-size: 9px; letter-spacing: 0.35em; text-transform: uppercase; color: var(--bronze-lt); margin-bottom: 10px;">Chris-Craft · SMB Phoenix · Striking · + Active Programs</div>
+          <div style="font-family: var(--serif); font-size: 24px; font-weight: 400; color: var(--white); margin-bottom: 6px;">10+ Additional Programs</div>
+          <div style="font-size: 12px; color: rgba(248,246,241,0.5); margin-bottom: 20px;">Performance, Recreational & New OEM</div>
+          <div style="font-size: 12px; color: rgba(248,246,241,0.4); line-height: 1.7; padding-top: 20px; border-top: 1px solid var(--divider);">Wahoo Marine, Livelli Yachts, Virtus Maritime, Sea Savage — concept development through manufacturing standup.</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section" id="contact">
+    <div class="cta-bg-word">PTYD</div>
+    <div class="cta-inner">
+      <div>
+        <p class="twin-label">Let's Build Something</p>
+        <h2 class="cta-title">
+          Your next vessel starts with<br/><em>the right engineering partner.</em>
+        </h2>
+      </div>
+      <div class="cta-actions">
+        <a href="https://form.jotform.com/251104285772152" target="_blank" class="btn-bronze">Request a Quote</a>
+        <a href="https://form.jotform.com/251104285772152" target="_blank" class="btn-ghost-white">Start a Project</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid">
+      <div>
+        <div class="footer-mark">PT</div>
+        <span class="footer-brand-name">PTYD</span>
+        <span class="footer-brand-sub">PT Yacht Design</span>
+        <p class="footer-tagline">Naval architecture, composite engineering, and production-ready digital twins for builders who demand excellence.</p>
+      </div>
+      <div>
+        <p class="footer-col-title">Disciplines</p>
+        <ul class="footer-links">
+          <li><a href="#services">Naval Architecture</a></li>
+          <li><a href="#services">Design Studio</a></li>
+          <li><a href="#services">Comprehensive Engineering</a></li>
+          <li><a href="#services">3D Scanning & Metrology</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-col-title">Company</p>
+        <ul class="footer-links">
+          <li><a href="#model">Our Model</a></li>
+          <li><a href="#work">Portfolio</a></li>
+          <li><a href="#twin">The Digital Twin</a></li>
+          <li><a href="https://www.prototechmfg.com" target="_blank">ProtoTech Manufacturing</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-col-title">Connect</p>
+        <ul class="footer-links">
+          <li><a href="https://form.jotform.com/251104285772152" target="_blank">Request a Quote</a></li>
+          <li><a href="https://www.linkedin.com/company/prototechmfg" target="_blank">LinkedIn</a></li>
+          <li><a href="https://www.instagram.com/prototechmfg" target="_blank">Instagram</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2026 PT Yacht Design. All rights reserved.</p>
+      <a href="https://www.prototechmfg.com" class="footer-mfg-link" target="_blank">A ProtoTech Company →</a>
+    </div>
+  </footer>
+
+  <script>
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 60);
+    });
+  </script>
+
+</body>
+</html>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
